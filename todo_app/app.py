@@ -9,7 +9,7 @@ app.config.from_object(Config())
 
 @app.route('/')
 def index():
-    return render_template('index.html', index = get_items())
+    return render_template('index.html', tasks = get_items())
 
 @app.route('/new', methods=['POST'])
 def new_task():
