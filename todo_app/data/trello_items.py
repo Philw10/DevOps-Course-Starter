@@ -1,46 +1,41 @@
 import os
+from tokenize import String
 import requests
 from flask import session
 
-def api_request(request_type, title):
+def api_request_get():
+
     payload = {'key': os.getenv('API_KEY'), 'token': os.getenv('API_TOKEN')}
     board_ID = os.getenv('BOARD_ID')
+    get_list_of_items = requests.get( f'https://api.trello.com/1/boards/{board_ID}/cards', params=payload)
 
-    if request_type == 'get all':
-        get_list_of_items = requests.get( f'https://api.trello.com/1/boards/{board_ID}/cards', params=payload)
-        return get_list_of_items.json()
-    elif request_type == 'post':
-        #code to add new action  updated and correct URL required
-        requests.post( f'https://api.trello.com/1/boards/{board_ID}/cards', params=payload)
-        
-    elif request_type == 'put':
-        #code to update action updated and correct URL required
-        requests.get( f'https://api.trello.com/1/boards/{board_ID}/cards', params=payload)
-
+    return get_list_of_items.json()
     
+def api_request_post(title: String): 
+
+    payload = {'name': title, 'idList': os.getenv('OPEN_LIST_ID'), 'key': os.getenv('API_KEY'), 'token': os.getenv('API_TOKEN')}
+    requests.post( f'https://api.trello.com/1/cards', params=payload)
+
+def api_request_put(title: String, card_id): 
+
+    payload = {'key': os.getenv('API_KEY'), 'token': os.getenv('API_TOKEN')}
+    requests.put( f'https://api.trello.com/1/cards/{card_id}', params=payload)
 
 def get_items():
     
-    items_dict = api_request('get all', None)
-    is_this_the_name = items_dict[0]['name']
-            
+    items_dict = api_request_get()
+                    
     return session.get('items', items_dict.copy())
 
 
 def add_item(title):
     # post
+    api_request_post(title)
     items = get_items()
 
-    # Determine the ID for the item based on that of the previously added item
-    id = items[-1]['id'] + 1 if items else 0
+    #session['items'] = items
 
-    item = { 'id': id, 'title': title, 'status': 'Not Started' }
-
-    # Add the item to the list
-    items.append(item)
-    session['items'] = items
-
-    return item
+    #return item
 
 
 def save_item(item):
