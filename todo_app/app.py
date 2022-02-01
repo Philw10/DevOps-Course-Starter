@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from werkzeug.utils import redirect
-from todo_app.data.session_items import save_item, get_item 
+from todo_app.data.session_items import get_item 
 from todo_app.data.trello_items import complete_item, get_items, add_item
 
 

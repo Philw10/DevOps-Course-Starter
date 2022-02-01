@@ -2,6 +2,9 @@ import os
 from tokenize import String
 import requests
 from flask import session
+from todo_app.data.item import Item
+
+task_list = []
 
 def api_request_get():
 
@@ -25,14 +28,29 @@ def api_request_put(card_id):
 def get_items():
     
     items_dict = api_request_get()
+       
+    for card in items_dict:
+        new_item = True
+        for task in task_list:
+            task_id = task.id
+            card_id = card['id']
+            if ((str(task.id)) == (str(card['id']))):
+                new_item = False
+                
+        if new_item == True: 
+            new_task = Item.from_trello_cards(card)
+            task_list.append(new_task)                   
                     
-    return session.get('items', items_dict.copy())
+    return session.get('items', task_list.copy())
 
 
 def add_item(title):
-    
     api_request_post(title)
-    items = get_items()
+    
 
 def complete_item(item_id):
-    api_request_put(item_id)
+    
+    for task in task_list:
+        if item_id == task.id:
+            task.status = "Complete"
+            api_request_put(item_id)
