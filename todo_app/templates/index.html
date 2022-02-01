@@ -13,7 +13,11 @@
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
         {% for value in tasks %}
-         <li>{{value.name}}</li>
+         <li>
+           {{value.name}} <form action="/complete/{{value.id}}" method="get">
+             <input type="submit" value=&#10004>
+           </form> 
+         </li>
         {% endfor %}        
       </ul>
       <p>
