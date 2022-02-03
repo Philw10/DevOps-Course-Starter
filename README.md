@@ -42,8 +42,13 @@ You will also need to register for an API key, and token.  Instructions on compl
 
 Please then update the '.env' file with the key and token by copying, pasting, and modifying the following:-
 
+```bash
 API_KEY=YOUR KEY ADDED HERE
 API_TOKEN=YOUR TOKEN ADDED HERE
+BOARD_ID=THE ID FOR YOUR BOARD CONTAINING YOUR LISTS
+OPEN_LIST_ID=THE ID FOR YOUR OPEN LIST
+CLOSED_LIST_ID=THE ID FOR YOUR CLOSED LIST
+```
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
