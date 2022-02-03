@@ -4,8 +4,6 @@ import requests
 from flask import session
 from todo_app.data.item import Item
 
-task_list = []
-
 def api_request_get():
 
     payload = {'key': os.getenv('API_KEY'), 'token': os.getenv('API_TOKEN')}
@@ -25,32 +23,29 @@ def api_request_put(card_id):
     payload = {'key': os.getenv('API_KEY'), 'token': os.getenv('API_TOKEN'), 'idList': os.getenv('CLOSED_LIST_ID')}
     requests.put( f'https://api.trello.com/1/cards/{card_id}', params=payload)
 
-def get_items():
-    
+def process_trello_records():
+
+    task_list = set()  #Using a set to avoid duplication
     items_dict = api_request_get()
-       
+
     for card in items_dict:
-      if (duplicate_check(card) == False): 
-            new_task = Item.from_trello_cards(card)
-            task_list.append(new_task)                   
-                    
+        new_task = Item.from_trello_cards(card)
+        task_list.add(new_task)
+
+    return task_list
+
+def get_items():
+
+    task_list = process_trello_records()
+        
     return session.get('items', task_list.copy())
 
 
 def add_item(title):
+
     api_request_post(title)
     
 
 def complete_item(item_id):
-    
-    for task in task_list:
-        if item_id == task.id:
-            task.status = "Complete"
-            api_request_put(item_id)
 
-def duplicate_check(card):
-    for task in task_list:
-      if ((str(task.id)) == (str(card['id']))):
-             return True
-      else:
-             return False      
+    api_request_put(item_id)    
