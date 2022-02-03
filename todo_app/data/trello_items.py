@@ -30,14 +30,7 @@ def get_items():
     items_dict = api_request_get()
        
     for card in items_dict:
-        new_item = True
-        for task in task_list:
-            task_id = task.id
-            card_id = card['id']
-            if ((str(task.id)) == (str(card['id']))):
-                new_item = False
-                
-        if new_item == True: 
+      if (duplicate_check(card) == False): 
             new_task = Item.from_trello_cards(card)
             task_list.append(new_task)                   
                     
@@ -54,3 +47,10 @@ def complete_item(item_id):
         if item_id == task.id:
             task.status = "Complete"
             api_request_put(item_id)
+
+def duplicate_check(card):
+    for task in task_list:
+      if ((str(task.id)) == (str(card['id']))):
+             return True
+      else:
+             return False      
