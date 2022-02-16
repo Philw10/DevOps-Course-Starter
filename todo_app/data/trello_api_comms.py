@@ -4,11 +4,11 @@ from tokenize import String
 
 def api_request_get():
 
-        payload = {'key': os.getenv('API_KEY'), 'token': os.getenv('API_TOKEN')}
-        list_ID = os.getenv('OPEN_LIST_ID')
-        get_list_of_items = requests.get( f'https://api.trello.com/1/lists/{list_ID}/cards/', params=payload)
+    payload = {'key': os.getenv('API_KEY'), 'token': os.getenv('API_TOKEN')}
+    list_ID = os.getenv('OPEN_LIST_ID')
+    get_list_of_items = requests.get( f'https://api.trello.com/1/lists/{list_ID}/cards/', params=payload)
 
-        return get_list_of_items.json()
+    return get_list_of_items.json()
         
 def api_request_post(title: String): 
 

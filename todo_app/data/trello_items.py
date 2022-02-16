@@ -1,48 +1,45 @@
-import os
-import requests
 from flask import session
 from todo_app.data.item import Item
 from todo_app.data.trello_api_comms import api_request_get, api_request_post, api_request_put
 
-def process_trello_records():
+task_list = []
 
-    task_list = []
+def process_trello_records():
     
     items_dict = api_request_get()
-
+    
     for card in items_dict:
-        new_task = Item.from_trello_cards(card)
-        task_list.append(new_task)
+        duplicate = False
+        for task in task_list:
+            if (card['id'] == task.id):
+                duplicate = True
+        if (duplicate == False):        
+            new_task = Item.from_trello_cards(card)
+            task_list.append(new_task)            
+    
+
+def get_items(): 
+
+    process_trello_records()
 
     return task_list
-
-task_list = process_trello_records()
-
-def get_items():    
-        
-    return session.get('items', task_list.copy())
 
 
 def add_item(title):
 
     trello_conf_added = api_request_post(title)
 
-    items = task_list
-
     id = trello_conf_added['id']    
 
     new_task = Item.from_trello_cards({'id': id, 'name': title})
-    items.append(new_task)  
+    task_list.append(new_task) 
     
 
 def complete_item(item_id):
 
-    items = task_list
-
-    for task in items:
-        t = task.id
+    for task in task_list:
         if task.id == item_id:
-            task.status = "Complete"
+            task.status = "complete"
     
     #Updates Trello but not linked to the default items set as yet
     api_request_put(item_id)    

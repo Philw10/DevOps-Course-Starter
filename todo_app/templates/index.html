@@ -9,7 +9,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
+      <h2>Items to do</h2>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
         {% for value in tasks %}
@@ -30,6 +30,14 @@
           </div>
         </form>  
       </p>
+      <h2>Completed Items</h2>
+      <ul class="list-group mb-4">
+        {% for value in tasks %}
+          {% if value.status == "complete" %}
+              <li>{{value.task}} </li>             
+          {% endif %}              
+        {% endfor %}        
+      </ul>
     </div>
   </div>
 {% endblock %}
