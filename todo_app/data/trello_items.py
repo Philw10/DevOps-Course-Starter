@@ -1,26 +1,48 @@
-from flask import session
 from todo_app.data.item import Item
 from todo_app.data.trello_api_comms import api_request_get, api_request_post, api_request_put
 
 task_list = []
 
-def process_trello_records():
+def process_full_trello_records():
     
     items_dict = api_request_get()
-    
-    for card in items_dict:
+    process_todo_items(items_dict)
+    process_completed_items(items_dict)    
+
+        
+def process_todo_items(items_dict):
+
+    for card in items_dict[0]['cards']:
         duplicate_task = False
         for task in task_list:
             if (card['id'] == task.id):
                 duplicate_task = True
-        if (duplicate_task == False):        
-            new_task = Item.from_trello_cards(card)
-            task_list.append(new_task)            
-    
+                if (task.status == 'complete'):
+                    task.status = 'To Do'   
+        if (duplicate_task == False):
+            add_card_to_task_list(card, 'To Do')        
+            
+
+def process_completed_items(items_dict):
+
+    for card in items_dict[2]['cards']:
+        duplicate_task = False
+        for task in task_list:
+            if (card['id'] == task.id):
+                duplicate_task = True
+                if (task.status == 'To Do'):
+                    task.status = 'complete'                    
+        if (duplicate_task == False):  
+            add_card_to_task_list(card, 'complete')     
+            
+
+def add_card_to_task_list(card, status):
+    new_task = Item.from_trello_cards(card, status)
+    task_list.append(new_task)
 
 def get_items(): 
 
-    process_trello_records()
+    process_full_trello_records()
 
     return task_list
 
@@ -40,6 +62,4 @@ def complete_item(item_id):
     for task in task_list:
         if task.id == item_id:
             task.status = "complete"
-    
-    #Updates Trello but not linked to the default items set as yet
-    api_request_put(item_id)    
+            api_request_put(item_id)    
