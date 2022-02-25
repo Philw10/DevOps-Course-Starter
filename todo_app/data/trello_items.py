@@ -53,7 +53,7 @@ def add_item(title):
 
     id = trello_conf_added['id']  
 
-    new_task = Item.from_trello_cards({'id': id, 'name': title})
+    new_task = Item.from_trello_cards({'id': id, 'name': title}, 'To Do')
     task_list.append(new_task) 
     
 

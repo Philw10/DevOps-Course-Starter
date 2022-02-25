@@ -13,7 +13,7 @@ def index():
 @app.route('/new', methods=['POST'])
 def new_task():
     add_item(request.form.get('title'))
-    return redirect((url_for("index")))
+    return redirect(url_for("index"))
 
 @app.route('/complete/<id>')
 def complete_task(id):
