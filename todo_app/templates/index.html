@@ -12,7 +12,7 @@
       <h2>Items to do</h2>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
-        {% for value in tasks %}
+        {% for value in view_model.tasks %}
           {% if value.status == "To Do" %}
             <form action="/complete/{{value.id}}" method="get">
             <input type="submit" value=&#10004>
@@ -32,7 +32,7 @@
       </p>
       <h2>Completed Items</h2>
       <ul class="list-group mb-4">
-        {% for value in tasks %}
+        {% for value in view_model.tasks %}
           {% if value.status == "complete" %}
               <li>{{value.task}} </li>             
           {% endif %}              
