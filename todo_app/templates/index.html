@@ -33,7 +33,7 @@
       <h2>Completed Items</h2>
       <ul class="list-group mb-4">
         {% for value in view_model.tasks %}
-          {% if value.status == "complete" %}
+          {% if value.status == "Done" %}
               <li>{{value.task}} </li>             
           {% endif %}              
         {% endfor %}        
