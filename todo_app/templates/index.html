@@ -5,37 +5,39 @@
   <div class="jumbotron">
     <h1 class="display-4">To-Do App</h1>
     <p class="lead">Just another to-do app.</p>
+    <p>
+      <form action="/new" method="post">
+        <div>
+          <label for="title">Enter a new task: </label>
+          <input type="text" name="title" id="title" required>
+          <input type="submit" value="Add">
+        </div>
+      </form>  
+    </p>
   </div>
 
   <div class="row">
-    <div class="col-md-12">
-      <h2>Items to do</h2>
+    <div class="col-md-12">      
+      <h4>Tasks to do</h4>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
-        {% for value in view_model.tasks %}
-          {% if value.status == "To Do" %}
+        {% for value in view_model.to_do_items %}
             <form action="/complete/{{value.id}}" method="get">
             <input type="submit" value=&#10004>
             {{value.task}} 
-            </form>  
-          {% endif %}              
+            </form>                        
         {% endfor %}        
-      </ul>
-      <p>
-        <form action="/new" method="post">
-          <div>
-            <label for="title">Enter a new item to-do: </label>
-            <input type="text" name="title" id="title" required>
-            <input type="submit" value="Add">
-          </div>
-        </form>  
-      </p>
-      <h2>Completed Items</h2>
+      </ul>      
+      <h4>Currently doing</h4>
       <ul class="list-group mb-4">
-        {% for value in view_model.tasks %}
-          {% if value.status == "Done" %}
-              <li>{{value.task}} </li>             
-          {% endif %}              
+        {% for value in view_model.doing_items %}          
+              <li>{{value.task}} </li>          
+        {% endfor %} 
+      </ul>  
+      <h4>Completed tasks</h4>
+      <ul class="list-group mb-4">
+        {% for value in view_model.done_items %}          
+              <li>{{value.task}} </li>          
         {% endfor %}        
       </ul>
     </div>
