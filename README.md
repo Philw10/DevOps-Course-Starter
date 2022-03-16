@@ -67,3 +67,19 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Testing
+
+This app utilises pytest for its unit and integration tests.
+
+In order to use pytest please first install it using pip and the following in the terminal
+
+```bash
+$ pip install pytest
+```
+
+Pytest can then be run by entering the following into terminal
+
+```bash
+$ poetry run pytest
+```
