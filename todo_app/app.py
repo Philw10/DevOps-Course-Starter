@@ -24,5 +24,3 @@ def create_app():
         return redirect(url_for("index"))
 
     return app
-
-create_app()    

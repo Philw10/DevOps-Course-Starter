@@ -18,19 +18,22 @@
   <div class="row">
     <div class="col-md-12">      
       <h4>Tasks to do</h4>
-      <ul class="list-group mb-4">
+      <ul class="list-group mb-3">
         <!-- List the todo items here -->
         {% for value in view_model.to_do_items %}
-            <form action="/complete/{{value.id}}" method="get">
+            <form action="/complete/{{value.id}}" method="get" title="Complete item">
             <input type="submit" value=&#10004>
             {{value.task}} 
-            </form>                        
+          </form> 
         {% endfor %}        
       </ul>      
       <h4>Currently doing</h4>
-      <ul class="list-group mb-4">
+      <ul class="list-group mb-3">
         {% for value in view_model.doing_items %}          
-              <li>{{value.task}} </li>          
+           <form action="/complete/{{value.id}}" method="get" title="Complete item">
+           <input type="submit" value=&#10004>
+           {{value.task}} 
+           </form>         
         {% endfor %} 
       </ul>  
       <h4>Completed tasks</h4>
