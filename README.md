@@ -77,3 +77,20 @@ Pytest can then be run by entering the following into terminal
 ```bash
 $ poetry run pytest
 ```
+
+## Provision of VM via Ansible
+
+The files to_do_playbook, and ansible-inventory are provided in the todo_app folder in order to set up a managed node from a Ansible controller node.
+
+In order to run the playbook please make sure you have Ansible installed on the controller node by rinning the 'ansible --version' command.
+
+Once installation confirmed the nodes need to be connected via SSH to continue.
+
+Please place both the playbook, and inventory files onto the controller note.  The following command can then be used in order to provision and run the to-do app on the managed node:
+
+```bash
+$ ansible-playbook to_do_playbook.yml -i ansible-inventory
+```
+You will be required to input the apps enviromental config (e.g your trello keys) as the playbook runs.
+
+The app can then be accessed via the IP address of your VM followed by :5000 (e.g 0.0.0.0:5000)
