@@ -8,3 +8,33 @@
       name: git
       state: present
     become: yes  
+
+  - name: install python 3
+    yum:
+      name: python3
+      state: present
+    become: yes  
+
+  - name: install poetry if not already installed
+    ansible.builtin.shell: curl -sSL https://install.python-poetry.org | python3 -
+    args:
+      creates: ~/.local/bin/poetry
+
+- name: Set up and deploy to-do app
+  hosts: webservers
+  remote_user: ec2-user
+
+  tasks:
+  - name: create directory /opt/todoapp with owner permissions
+    ansible.builtin.file:
+      path: /opt/todoapp
+      state: directory
+      mode: '755'
+      owner: ec2-user
+    become: yes  
+
+  - name: checkout latest version of code from git
+    ansible.builtin.git:
+      repo: 'https://github.com/Philw10/DevOps-Course-Starter.git'
+      dest: /opt/todoapp
+      version: module4 
