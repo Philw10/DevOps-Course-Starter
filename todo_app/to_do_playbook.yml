@@ -1,3 +1,10 @@
 - name: To-do app config
-  host: webservers
+  hosts: webservers
   remote_user: ec2-user
+
+  tasks:
+  - name: install git
+    yum:
+      name: git
+      state: present
+    become: yes  
