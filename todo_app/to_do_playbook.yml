@@ -23,6 +23,25 @@
 - name: Set up and deploy to-do app
   hosts: webservers
   remote_user: ec2-user
+  vars_prompt:
+    - name: secret_key
+      prompt: what is the Flask secret key?
+      private: yes 
+    - name: trello_key
+      prompt: what is the trello key?
+      private: yes 
+    - name: trello_token
+      prompt: what is the trello token?
+      private: yes 
+    - name: trello_board_id
+      prompt: what is the board id?
+      private: yes 
+    - name: trello_open_list_id
+      prompt: what is the open list id?
+      private: yes 
+    - name: trello_closed_list_id
+      prompt: what is the closed list id?
+      private: yes 
 
   tasks:
   - name: create directory /opt/todoapp with owner permissions
@@ -38,3 +57,13 @@
       repo: 'https://github.com/Philw10/DevOps-Course-Starter.git'
       dest: /opt/todoapp
       version: module4 
+
+  - name: install project dependencies
+    ansible.builtin.shell: cd /opt/todoapp; ~/.local/bin/poetry install
+
+  - name: create .env
+    ansible.builtin.template:
+      src: /home/ec2-user/.env.j2
+      dest: /opt/todoapp/.env
+      owner: ec2-user
+      mode: '700'
