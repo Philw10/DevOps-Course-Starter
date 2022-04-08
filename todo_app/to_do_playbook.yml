@@ -1,0 +1,3 @@
+- name: To-do app config
+  host: webservers
+  remote_user: ec2-user
