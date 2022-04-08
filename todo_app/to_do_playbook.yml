@@ -67,3 +67,5 @@
       dest: /opt/todoapp/.env
       owner: ec2-user
       mode: '700'
+
+      
