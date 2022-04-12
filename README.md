@@ -82,7 +82,7 @@ $ poetry run pytest
 
 The files to_do_playbook, and ansible-inventory are provided in the todo_app folder in order to set up a managed node from a Ansible controller node.
 
-In order to run the playbook please make sure you have Ansible installed on the controller node by rinning the 'ansible --version' command.
+In order to run the playbook please make sure you have Ansible installed on the controller node by running the 'ansible --version' command.
 
 Once installation confirmed the nodes need to be connected via SSH to continue.
 

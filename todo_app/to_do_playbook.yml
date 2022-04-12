@@ -1,26 +1,4 @@
-- name: To-do app config
-  hosts: webservers
-  remote_user: ec2-user
-
-  tasks:
-  - name: install git
-    yum:
-      name: git
-      state: present
-    become: yes  
-
-  - name: install python 3
-    yum:
-      name: python3
-      state: present
-    become: yes  
-
-  - name: install poetry if not already installed
-    ansible.builtin.shell: curl -sSL https://install.python-poetry.org | python3 -
-    args:
-      creates: ~/.local/bin/poetry
-
-- name: Set up and deploy to-do app
+- name: To-do app config and run
   hosts: webservers
   remote_user: ec2-user
   vars_prompt:
@@ -41,9 +19,26 @@
       private: yes 
     - name: trello_closed_list_id
       prompt: what is the closed list id?
-      private: yes 
+      private: yes
 
   tasks:
+  - name: install git
+    yum:
+      name: git
+      state: present
+    become: yes  
+
+  - name: install python 3
+    yum:
+      name: python3
+      state: present
+    become: yes  
+
+  - name: install poetry if not already installed
+    ansible.builtin.shell: curl -sSL https://install.python-poetry.org | python3 -
+    args:
+      creates: ~/.local/bin/poetry
+
   - name: create directory /opt/todoapp with owner permissions
     ansible.builtin.file:
       path: /opt/todoapp
@@ -68,4 +63,16 @@
       owner: ec2-user
       mode: '700'
 
-      
+  - name: copy service file to system
+    ansible.builtin.copy:
+      src: /opt/todoapp/todoapp.service
+      dest: /etc/systemd/system/todoapp.service
+      remote_src: yes
+    become: yes
+
+  - name: start app using systemd
+    ansible.builtin.systemd:
+      state: started
+      name: todoapp
+      daemon_reload: true
+    become: yes         
