@@ -119,7 +119,7 @@ docker run --env-file env.list --publish 80:80 todo-app:prod
 ```
 This command loads the env vairables at runtime and publishes the app to port 80.  It can be accessed on [`http://localhost:80/`](http://localhost:80/)
 
-Production:
+Development:
 ```bash
 docker run --env-file env.list --publish 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app todo-app:dev
 ```
