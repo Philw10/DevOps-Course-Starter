@@ -1,0 +1,7 @@
+ansible-inventory.txt
+to_do_playbook.yml
+.git
+.env
+.env.ji
+.env.template
+.env.test
