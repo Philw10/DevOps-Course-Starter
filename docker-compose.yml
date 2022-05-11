@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  production:
+    image: todo-app:prod
+    env_file:
+      - env.list
+    ports:
+      - "80:80"
+
+  development:
+    image: todo-app:dev
+    env_file:
+      - env.list
+    ports:
+      - "5000:5000"
+    volumes:
+      - type: bind
+        source: ./todo_app
+        target: /app/todo_app
+    
