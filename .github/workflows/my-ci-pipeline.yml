@@ -1,5 +1,20 @@
 name: To-do app Integration
-on: [push]
+on: 
+  push:
+    paths-ignore:
+      - 'README.md'
+      - 'documentation/**'
+    branches:
+      - main
+      - module_**
+      
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'documentation/**'
+    branches:
+      - main
+      - module_**
 
 jobs:
   build:
