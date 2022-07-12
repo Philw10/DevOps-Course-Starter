@@ -6,7 +6,7 @@ on:
       - 'documentation/**'
     branches:
       - main
-      - module_**
+      - module_*
       
   pull_request:
     paths-ignore:
@@ -14,7 +14,7 @@ on:
       - 'documentation/**'
     branches:
       - main
-      - module_**
+      - module_*
 
 jobs:
   build:
