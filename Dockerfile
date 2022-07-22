@@ -26,3 +26,7 @@ WORKDIR /app
 COPY . /app
 
 CMD [ "poetry", "run", "flask", "run", "--host=0.0.0.0" ]
+
+FROM development as test
+
+ENTRYPOINT [ "poetry", "run", "pytest" ]

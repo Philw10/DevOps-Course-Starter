@@ -1,0 +1,30 @@
+name: To-do app Integration
+on: 
+  push:
+    paths-ignore:
+      - 'README.md'
+      - 'documentation/**'
+    branches:
+      - main
+      - module_*
+      
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'documentation/**'
+    branches:
+      - main
+      - module_*
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: build
+        run: docker build --target test --tag to-do-test-image .
+
+      - name: test
+        run: docker run --env-file .env.test to-do-test-image

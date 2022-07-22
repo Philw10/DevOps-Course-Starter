@@ -124,3 +124,20 @@ Development:
 docker run --env-file env.list --publish 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app todo-app:dev
 ```
 This command loads the env vairables at runtime and publishes the app to port 5000.  It also uses a bind mount to link the container to the application code in the local todo_app directory.  This allows any code changes to be hot loaded into the running flask app for instant viewing.  It can be accessed on [`http://localhost:5000/`](http://localhost:5000/).
+
+## Testing though Docker
+
+The unit and integration tests can also be run through Docker.
+
+The test image can be built with the following command:
+
+```bash
+docker build --target test --tag to-do-test-image .
+```
+
+The tests can then be run using the following:
+
+```bash
+docker run --env-file .env.test to-do-test-image
+```
+The Docker test uses the .env.test file in place of any secret environment variables.
