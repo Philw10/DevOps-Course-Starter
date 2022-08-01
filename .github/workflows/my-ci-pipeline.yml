@@ -63,15 +63,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build Docker image
-        run: docker build --target production --tag philw10/todo-app .
-      
-      - name: Set deploy tag
-        run: docker tag philw10/todo-app registry.heroku.com/phil-todo-app/web
-
-      - name: Push to registry
-        run: docker push registry.heroku.com/phil-todo-app/web
-
-      - name: Deploy
-        run: heroku container:release web -a phils-todo-app
-
+        uses: gonuit/heroku-docker-deploy@v1.3.3
+        with:
+          email: philw10@yahoo.co.uk         
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: phil-todo-app
+          docker_options: "--target production"
