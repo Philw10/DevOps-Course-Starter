@@ -45,8 +45,16 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       
-      - name: Build Docker image
-        run: docker build --target production --tag philw10/todo-app:${{ GITHUB_SHA }}
-
-      - name: Push image to Docker hub
-        run: docker push philw10/todo-app:${{ GITHUB_SHA }}
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: philw10/todo-app
+    
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
