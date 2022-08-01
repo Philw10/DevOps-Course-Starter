@@ -16,9 +16,6 @@ on:
       - main
       - module_*
 
-env:
-      IMAGE_TAG: ${{ github_sha }}
-
 jobs:
   test:
     name: Build and test
@@ -40,6 +37,9 @@ jobs:
     
     steps:  
       - uses: actions/checkout@v2
+
+      - env:
+          IMAGE_TAG: ${{ github_sha }}
 
       - run: echo "Publishing"
       - run: echo "$IMAGE_TAG"
