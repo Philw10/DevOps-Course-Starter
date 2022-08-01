@@ -55,3 +55,19 @@ jobs:
       - name: Push images to Docker hub
         run: docker push philw10/todo-app:$IMAGE_TAG    
           
+  deploy:
+    needs: build
+    name: Deploy to Heroku
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "phil-todo-app" 
+          heroku_email: "philw10@yahoo.co.uk"  
+          usedocker: true
+          docker_build_args: |
+            NODE_ENV
+        env:
+          NODE_ENV: production
