@@ -34,6 +34,8 @@ jobs:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_8'}}
     name: Create Docker image and push to docker hub
     runs-on: ubuntu-latest
+    env:
+      IMAGE_TAG: ${{ GITHUB_SHA}}
     steps:  
       - uses: actions/checkout@v2
 
@@ -46,8 +48,8 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       
       - name: Build Docker image
-        run: docker build --target production --tag philw10/todo-app:${{ GITHUB_SHA }}
+        run: docker build --target production --tag philw10/todo-app:$IMAGE_TAG
 
       - name: Push images to Docker hub
-        run: docker push philw10/todo-app:${{ GITHUB_SHA }}     
+        run: docker push philw10/todo-app:$IMAGE_TAG    
           
