@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:  
       - uses: actions/checkout@v2
-          
+
       - run: echo "Publishing"
 
       - name: Log in to Docker Hub
@@ -46,7 +46,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       
       - name: Build Docker image
-        - run: docker build --target production --tag philw10/todo-app:${{ GITHUB_SHA }}
+        run: docker build --target production --tag philw10/todo-app:${{ GITHUB_SHA }}
 
       - name: Push image to Docker hub
-        - run: docker push philw10/todo-app:${{ GITHUB_SHA }}
+        run: docker push philw10/todo-app:${{ GITHUB_SHA }}
