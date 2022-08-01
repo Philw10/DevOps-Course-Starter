@@ -48,7 +48,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       
       - name: Build Docker image
-        run: docker build --target production --tag philw10/todo-app:$IMAGE_TAG
+        run: docker build --target production --tag philw10/todo-app:$IMAGE_TAG .
 
       - name: Push images to Docker hub
         run: docker push philw10/todo-app:$IMAGE_TAG    
