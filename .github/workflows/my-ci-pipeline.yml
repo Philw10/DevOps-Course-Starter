@@ -16,8 +16,8 @@ on:
       - main
       - module_*
 env:
-          IMAGE_TAG: ${{ github.github_sha }}
-          
+    IMAGE_TAG: ${{ github_sha }}
+
 jobs:
   test:
     name: Build and test
