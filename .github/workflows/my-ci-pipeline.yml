@@ -56,18 +56,22 @@ jobs:
         run: docker push philw10/todo-app:$IMAGE_TAG    
           
   deploy:
-    needs: build
+    needs: test
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_8'}}
     name: Deploy to Heroku
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "phil-todo-app" 
-          heroku_email: "philw10@yahoo.co.uk"  
-          usedocker: true
-          docker_build_args: |
-            NODE_ENV
-        env:
-          NODE_ENV: production
+
+      - name: Build Docker image
+        run: docker build --target production --tag philw10/todo-app .
+      
+      - name: Set deploy tag
+        run: docker tag philw10/todo-app registry.heroku.com/phil-todo-app/web
+
+      - name: Push to registry
+        run: docker push registry.heroku.com/phil-todo-app/web
+
+      - name: Deploy
+        run: heroku container:release web -a phils-todo-app
+
