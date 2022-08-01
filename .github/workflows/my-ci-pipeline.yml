@@ -15,7 +15,9 @@ on:
     branches:
       - main
       - module_*
-
+env:
+          IMAGE_TAG: ${{ github.github_sha }}
+          
 jobs:
   test:
     name: Build and test
@@ -34,8 +36,7 @@ jobs:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_8'}}
     name: Create Docker image and push to docker hub
     runs-on: ubuntu-latest
-    env:
-          IMAGE_TAG: ${{ github.github_sha }}
+    
     steps:  
       - uses: actions/checkout@v2        
      
