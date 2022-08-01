@@ -35,6 +35,8 @@ jobs:
     name: Create Docker image and push to docker hub
     runs-on: ubunto-latest
     steps:
+      - uses: actions/checkout@v2
+      
       - run: echo "Publishing"
 
       - name: Log in to Docker Hub
