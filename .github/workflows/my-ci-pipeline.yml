@@ -37,10 +37,9 @@ jobs:
     
     steps:  
       - uses: actions/checkout@v2
-
-      - env:
+        env:
           IMAGE_TAG: ${{ github_sha }}
-
+     
       - run: echo "Publishing"
       - run: echo "$IMAGE_TAG"
 
