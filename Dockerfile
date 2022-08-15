@@ -1,6 +1,7 @@
 FROM python:3.7-buster as base
 
 ENV PATH="/root/.poetry/bin:$PATH"
+ENV PORT=80
 
 
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
@@ -16,7 +17,7 @@ RUN poetry install --no-dev
 WORKDIR /app
 COPY . /app
 
-CMD [ "poetry", "run", "gunicorn", "todo_app.app:create_app()", "-w", "2", "--threads", "2", "-b", "0.0.0.0:80" ]
+CMD poetry run gunicorn "todo_app.app:create_app()" --bind 0.0.0.0:$PORT
 
 FROM base as development
 
