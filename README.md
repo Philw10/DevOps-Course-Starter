@@ -141,3 +141,13 @@ The tests can then be run using the following:
 docker run --env-file .env.test to-do-test-image
 ```
 The Docker test uses the .env.test file in place of any secret environment variables.
+
+## Heroku
+
+They app is now deployed to Heroku via a GitHub action CI/CD pipeline
+
+The app can be accessed on the following link:
+
+```bash
+https://phil-todo-app.herokuapp.com/
+```

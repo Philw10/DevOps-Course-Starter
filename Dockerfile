@@ -1,6 +1,7 @@
 FROM python:3.7-buster as base
 
 ENV PATH="/root/.poetry/bin:$PATH"
+ENV PORT=80
 
 
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
