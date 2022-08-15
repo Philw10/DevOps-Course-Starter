@@ -51,13 +51,13 @@ jobs:
       
       - name: Build Docker image and push latest
         run: 
-          - docker build --target production --tag philw10/todo-app .
-          - docker push philw10/todo-app
+          docker build --target production --tag philw10/todo-app .
+          docker push philw10/todo-app
 
       - name: Setting version tag and pushing to hub
         run: 
-          - docker tag philw10/todo-app philw10/todo-app:$IMAGE_TAG
-          - docker push philw10/todo-app$IMAGE_TAG
+          docker tag philw10/todo-app philw10/todo-app:$IMAGE_TAG
+          docker push philw10/todo-app$IMAGE_TAG
            
           
   deploy:
