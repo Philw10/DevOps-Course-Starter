@@ -57,7 +57,7 @@ jobs:
       - name: Setting version tag and pushing to hub
         run: 
           docker tag philw10/todo-app philw10/todo-app:$IMAGE_TAG
-          docker push philw10/todo-app$IMAGE_TAG
+          docker push philw10/todo-app:$IMAGE_TAG
            
           
   deploy:
