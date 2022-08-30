@@ -32,7 +32,7 @@ jobs:
 
   build:
     needs: test
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main'}}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_9'}}
     name: Create Docker image and push to docker hub
     runs-on: ubuntu-latest
     env:
@@ -64,15 +64,11 @@ jobs:
           
   deploy:
     needs: test
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main'}}
-    name: Deploy to Heroku
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_9'}}
+    name: Deploy to Azure
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - uses: gonuit/heroku-docker-deploy@v1.3.3
-        with:
-          email: philw10@yahoo.co.uk         
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: phil-todo-app
-          docker_options: "--target production"
+      - name: Trigger webhook
+        run: curl -dH -X POST ${{ secrets.AZURE_WEBHOOK }}
