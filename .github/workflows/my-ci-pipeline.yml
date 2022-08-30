@@ -63,7 +63,7 @@ jobs:
            
           
   deploy:
-    needs: test
+    needs: build
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_9'}}
     name: Deploy to Azure
     runs-on: ubuntu-latest
