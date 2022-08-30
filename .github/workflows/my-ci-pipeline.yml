@@ -32,7 +32,7 @@ jobs:
 
   build:
     needs: test
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_9'}}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main'}}
     name: Create Docker image and push to docker hub
     runs-on: ubuntu-latest
     env:
@@ -64,7 +64,7 @@ jobs:
           
   deploy:
     needs: build
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_9'}}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main'}}
     name: Deploy to Azure
     runs-on: ubuntu-latest
     steps:
