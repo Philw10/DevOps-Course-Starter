@@ -142,12 +142,12 @@ docker run --env-file .env.test to-do-test-image
 ```
 The Docker test uses the .env.test file in place of any secret environment variables.
 
-## Heroku
+## Azure
 
-They app is now deployed to Heroku via a GitHub action CI/CD pipeline
+They app is now deployed to Azure via a GitHub action CI/CD pipeline
 
 The app can be accessed on the following link:
 
 ```bash
-https://phil-todo-app.herokuapp.com/
+https://philstodoapp.azurewebsites.net
 ```

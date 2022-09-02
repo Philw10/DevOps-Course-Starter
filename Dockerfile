@@ -1,14 +1,15 @@
 FROM python:3.7-buster as base
 
-ENV PATH="/root/.poetry/bin:$PATH"
+ENV POETRY_HOME="/opt/poetry" \
+    POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_VIRTUALENVS_IN_PROJECT=false \
+    POETRY_NO_INTERACTION=1    
+ENV PATH="$PATH:$POETRY_HOME/bin"
 ENV PORT=80
 
-
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
 COPY poetry.lock pyproject.toml ./
-
-RUN poetry config virtualenvs.create false
 
 FROM base as production
 
