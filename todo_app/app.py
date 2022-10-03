@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, url_for
 from werkzeug.utils import redirect
-from todo_app.data.trello_items import complete_item, get_items, add_item
+from todo_app.data.mongo_items import get_items, add_item, complete_item
 from todo_app.flask_config import Config
 from todo_app.data.view_model import ViewModel
 
