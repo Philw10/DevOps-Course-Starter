@@ -5,9 +5,5 @@ class Item:
         self.status = status
 
     @classmethod
-    def from_trello_cards(cls, card, status):
-        return cls(card['id'], card['name'], status)
-
-    @classmethod
     def from_mungoDb(cls, mungo):
         return cls(mungo['_id'], mungo['task'], mungo['status'])

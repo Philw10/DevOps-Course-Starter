@@ -14,11 +14,11 @@ from todo_app.data.item import Item
 
 def mongo_db():
         client = pymongo.MongoClient(os.getenv('MONGO_CONNECTION_STRING'))
-        database = client.todo_app_mongodb
-        database.todo_list
+        database = client[os.getenv('MONGO_DATABASE_NAME')]
         return database
 
 def mongo_collection():
+    
     return mongo_db().todo_list
     
 def process_tasks():
@@ -31,13 +31,16 @@ def get_items():
 
     return process_tasks()
 
-
 def add_item(title):
 
-    new_item = {"task" : title, "status" : "to do"}
+    new_item = {"task" : title, "status" : "To Do"}
 
-    mongo_collection().insert_one(new_item)    
+    mongo_collection().insert_one(new_item)  
+
+def doing_item(item_id):
+
+    mongo_collection().update_one({"_id": item_id}, {"$set": {"status": "Doing"}}) 
 
 def complete_item(item_id):
 
-    mongo_collection().update_one({"_id": item_id}, {"$set": {"status": "done"}})
+    mongo_collection().update_one({"_id": item_id}, {"$set": {"status": "Done"}})

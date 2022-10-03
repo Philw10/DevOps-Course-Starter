@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, url_for
 from werkzeug.utils import redirect
-from todo_app.data.mongo_items import get_items, add_item, complete_item
+from todo_app.data.mongo_items import get_items, add_item, doing_item, complete_item
 from todo_app.flask_config import Config
 from todo_app.data.view_model import ViewModel
 
@@ -21,6 +21,11 @@ def create_app():
         @app.route('/complete/<id>')
         def complete_task(id):
                 complete_item(id)
+                return redirect(url_for("index"))
+
+        @app.route('/doing/<id>')
+        def doing_task(id):
+                doing_item(id)
                 return redirect(url_for("index"))
         
         return app
