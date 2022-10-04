@@ -139,4 +139,4 @@ https://philstodoapp.azurewebsites.net
 
 The app uses a mongo document store database to store all of the to do items.
 
-To configure your own to use with the app you will need to update the env file with your mongo connection string and database name.
+To configure your own to use with the app you will need to update the env file with your mongo connection string, database name, and collection name.

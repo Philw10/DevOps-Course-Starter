@@ -2,24 +2,16 @@ import pymongo
 import os
 from todo_app.data.item import Item
 
-#>>> client = pymongo.MongoClient('mongodb://todo-app-mongo-account:585FNKzPrduMQGxyxrJ4cxatCUHjmvBVPPfonOt6JnsvW7ByYzlpujwMkHvC2KNmyqqLSwuz8WPL137uhgkOew==@todo-app-mongo-account.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@todo-app-mongo-account@')
-#>>> post = {"task": "Test task", "status": "to do"}
-#>>> db = client.todo_app_mongodb
-#>>> task=db.todo_list
-#>>> id = task.insert_one(post).inserted_id  -- gives id when item added
-
-## Need to work out how to get list of items
-
-# Need to work out how to edit list -- e.g to move to done
-
 def mongo_db():
         client = pymongo.MongoClient(os.getenv('MONGO_CONNECTION_STRING'))
         database = client[os.getenv('MONGO_DATABASE_NAME')]
         return database
 
 def mongo_collection():
+
+    collection_name = os.getenv('MONGO_COLLECTION_NAME')
     
-    return mongo_db().todo_list
+    return mongo_db()[collection_name]
     
 def process_tasks():
 
