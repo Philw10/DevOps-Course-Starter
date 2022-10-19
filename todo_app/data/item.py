@@ -5,5 +5,5 @@ class Item:
         self.status = status
 
     @classmethod
-    def from_mungoDb(cls, mungo):
-        return cls(mungo['_id'], mungo['task'], mungo['status'])
+    def from_mongoDb(cls, mongo):
+        return cls(mongo['_id'], mongo['task'], mongo['status'])

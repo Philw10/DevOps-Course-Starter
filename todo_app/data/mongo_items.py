@@ -13,15 +13,15 @@ def mongo_collection():
     
     return mongo_db()[collection_name]
     
-def process_tasks():
+def get_tasks_as_items():
 
-    mungo_list = mongo_collection().find()
+    mongo_list = mongo_collection().find()
 
-    return [Item.from_mungoDb(task) for task in mungo_list]
+    return [Item.from_mongoDb(task) for task in mongo_list]
 
 def get_items(): 
 
-    return process_tasks()
+    return get_tasks_as_items()
 
 def add_item(title):
 
