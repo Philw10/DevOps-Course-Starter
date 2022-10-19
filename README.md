@@ -32,23 +32,6 @@ $ cp .env.template .env  # (first time only)
 
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
 
-## Using Trello to manage list
-
-The program uses Trello to manage the list items.  In order for this to work you will need a Trello account.
-
-Please go to (https://www.trello.com) to sign up for an account and create a new board for the to do list.
-
-You will also need to register for an API key, and token.  Instructions on completing this are accessed on the following link (https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/).
-
-Please then update the '.env' file with the key and token by copying, pasting, and modifying the following:-
-
-```bash
-API_KEY=YOUR KEY ADDED HERE
-API_TOKEN=YOUR TOKEN ADDED HERE
-BOARD_ID=THE ID FOR YOUR BOARD CONTAINING YOUR LISTS
-OPEN_LIST_ID=THE ID FOR YOUR OPEN LIST
-CLOSED_LIST_ID=THE ID FOR YOUR CLOSED LIST
-```
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
@@ -151,3 +134,9 @@ The app can be accessed on the following link:
 ```bash
 https://philstodoapp.azurewebsites.net
 ```
+
+## Mongo DB
+
+The app uses a mongo document store database to store all of the to do items.
+
+To configure your own to use with the app you will need to update the env file with your mongo connection string, database name, and collection name.

@@ -5,5 +5,5 @@ class Item:
         self.status = status
 
     @classmethod
-    def from_trello_cards(cls, card, status):
-        return cls(card['id'], card['name'], status)
+    def from_mongoDb(cls, mongo):
+        return cls(mongo['_id'], mongo['task'], mongo['status'])
