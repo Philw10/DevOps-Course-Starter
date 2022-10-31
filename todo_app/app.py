@@ -44,13 +44,14 @@ def create_app():
                 return redirect("/")
 
         def authorized():
-                return True if current_user.role == 'writer' else False                          
+                return True if (current_user.role == 'writer' or app.config['LOGIN_DISABLED'] == True) else False                          
         
         @app.route('/')
         @login_required
         def index():
                 task_view_model = ViewModel(get_items())
-                return render_template('index.html', view_model = task_view_model, auth_type = current_user.role)
+                auth_type = None if app.config['LOGIN_DISABLED'] == True else current_user.role
+                return render_template('index.html', view_model = task_view_model, auth_type = auth_type)
 
         @app.route('/new', methods=['POST'])
         @login_required
