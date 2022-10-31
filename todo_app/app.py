@@ -1,6 +1,6 @@
 import os
 import requests
-from flask_login import LoginManager, login_required, UserMixin, login_user
+from flask_login import LoginManager, login_required, UserMixin, login_user, current_user
 from flask import Flask, render_template, request, url_for
 from werkzeug.utils import redirect
 from todo_app.data.mongo_items import get_items, add_item, doing_item, complete_item
@@ -10,7 +10,7 @@ from todo_app.data.view_model import ViewModel
 class User(UserMixin):
         def __init__(self, id):
                 self.id = id
-
+                self.role = 'writer' if id == os.getenv('ADMIN_ID') else 'reader'
 
 def create_app():
         app = Flask(__name__)
@@ -43,28 +43,34 @@ def create_app():
                 login_user(id)
                 return redirect("/")
 
+        def authorized():
+                return True if current_user.role == 'writer' else False                          
+        
         @app.route('/')
         @login_required
         def index():
                 task_view_model = ViewModel(get_items())
-                return render_template('index.html', view_model = task_view_model)
+                return render_template('index.html', view_model = task_view_model, auth_type = current_user.role)
 
         @app.route('/new', methods=['POST'])
         @login_required
         def new_task():
-                add_item(request.form.get('title'))
+                if authorized():
+                           add_item(request.form.get('title'))
                 return redirect(url_for("index"))
 
         @app.route('/complete/<id>')
         @login_required
         def complete_task(id):
-                complete_item(id)
+                if authorized():
+                        complete_item(id)
                 return redirect(url_for("index"))
 
         @app.route('/doing/<id>')
         @login_required
         def doing_task(id):
-                doing_item(id)
+                if authorized():
+                        doing_item(id)
                 return redirect(url_for("index"))
-        
+     
         return app
