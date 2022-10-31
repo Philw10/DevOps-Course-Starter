@@ -1,6 +1,10 @@
 import os
 import requests
+<<<<<<< HEAD
 from flask_login import LoginManager, login_required, UserMixin, login_user, current_user
+=======
+from flask_login import LoginManager, login_required, UserMixin, login_user
+>>>>>>> module_11
 from flask import Flask, render_template, request, url_for
 from werkzeug.utils import redirect
 from todo_app.data.mongo_items import get_items, add_item, doing_item, complete_item
@@ -10,7 +14,11 @@ from todo_app.data.view_model import ViewModel
 class User(UserMixin):
         def __init__(self, id):
                 self.id = id
+<<<<<<< HEAD
                 self.role = 'writer' if id == os.getenv('ADMIN_ID') else 'reader'
+=======
+
+>>>>>>> module_11
 
 def create_app():
         app = Flask(__name__)
