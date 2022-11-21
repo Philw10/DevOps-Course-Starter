@@ -140,3 +140,17 @@ https://philstodoapp.azurewebsites.net
 The app uses a mongo document store database to store all of the to do items.
 
 To configure your own to use with the app you will need to update the env file with your mongo connection string, database name, and collection name.
+
+## Oauth authentication
+
+The app uses GitHub authentication to log in.  
+
+When you have logged in a secure cookie will be added to the users browser to store the session.
+
+Once oAuth has been set up in GitHub the provided ID and Secret can be added to the env file.
+
+## Authorisation
+
+Only accounts given admin access will be able to edit the list.  This is done by adding the users GitHub ID to the .env file.  
+
+All other users will have read only access.
