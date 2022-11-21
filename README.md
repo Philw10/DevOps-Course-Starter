@@ -151,6 +151,6 @@ Once oAuth has been set up in GitHub the provided ID and Secret can be added to 
 
 ## Authorisation
 
-Only accounts given admin access will be able to edit the list.  This is done by adding the users GitLab ID to the .env file.  
+Only accounts given admin access will be able to edit the list.  This is done by adding the users GitHub ID to the .env file.  
 
 All other users will have read only access.

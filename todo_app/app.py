@@ -44,7 +44,7 @@ def create_app():
                 return redirect("/")
 
         def authorized():
-                return True if (current_user.role == 'writer' or app.config['LOGIN_DISABLED'] == True) else False                          
+                return ((current_user.role == 'writer') or (app.config['LOGIN_DISABLED'] == True))                         
         
         @app.route('/')
         @login_required
