@@ -91,4 +91,4 @@ jobs:
         run: terraform apply -auto-approve
 
       - name: Trigger webhook
-        run: curl --fail -dH -X POST (terraform output -raw cd_webhook_url)
+        run: curl --fail -dH -X POST "$(terraform output -raw cd_webhook_url)"
