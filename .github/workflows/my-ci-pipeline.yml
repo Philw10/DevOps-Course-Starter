@@ -76,7 +76,7 @@ jobs:
       TF_VAR_mongo_collection_name   : ${{ secrets.TF_VAR_MONGO_COLLECTION_NAME }}
       TF_VAR_admin_id                : ${{ secrets.TF_VAR_ADMIN_ID }}
       TF_VAR_oauth_client_id         : ${{ secrets.TF_VAR_OAUTH_CLIENT_ID }}
-      TF_VAR_oauth_secret            : ${{ secrets.TF_VAR_OAUTH_CLIENT_SECRET }}
+      TF_VAR_oauth_secret            : ${{ secrets.TF_VAR_OAUTH_SECRET }}
       TF_VAR_prefix                  : ${{ secrets.TF_VAR_PREFIX }}
     runs-on: ubuntu-latest
     steps:
