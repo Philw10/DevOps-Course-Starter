@@ -32,7 +32,7 @@ jobs:
 
   build:
     needs: test
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_11'}}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_12'}}
     name: Create Docker image and push to docker hub
     runs-on: ubuntu-latest
     env:
@@ -64,11 +64,21 @@ jobs:
           
   deploy:
     needs: build
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_11'}}
-    name: Deploy to Azure
-    runs-on: ubuntu-latest
-    steps:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_12'}}
+    name: Deploy infrastructure, and app
+      runs-on: ubuntu-latest
+      steps:
       - uses: actions/checkout@v2
+
+      - name: Initialise Terraform
+        run: |
+             cd terraform
+             terraform init
+
+      - name: Deploy/update infrastructure
+        run: |
+             cd terraform
+             terraform apply -auto-approve
 
       - name: Trigger webhook
         run: curl --fail -dH -X POST ${{ secrets.AZURE_WEBHOOK }}

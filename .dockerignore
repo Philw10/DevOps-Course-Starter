@@ -5,3 +5,7 @@ to_do_playbook.yml
 .env.ji
 .env.template
 .env.test
+.terraform/
+*.tfstate
+*terraform.*
+*.tfvars
