@@ -132,7 +132,7 @@ They app is now deployed to Azure via a GitHub action CI/CD pipeline
 The app can be accessed on the following link:
 
 ```bash
-https://philstodoapp.azurewebsites.net
+https://phils-todo-terraformed.azurewebsites.net
 ```
 
 ## Mongo DB
@@ -154,3 +154,11 @@ Once oAuth has been set up in GitHub the provided ID and Secret can be added to 
 Only accounts given admin access will be able to edit the list.  This is done by adding the users GitHub ID to the .env file.  
 
 All other users will have read only access.
+
+## Infrastructure
+
+The CI/CD pipeline has now been updated to allow for infra updating and provisioning as part of the process.  
+
+For this Terraform is used.  See .tf files in the Terraform folder.
+
+Main.tf currently creates a new Azure web app if there isn't one already, and also sets up a Mongo DB for to-do list storage.
