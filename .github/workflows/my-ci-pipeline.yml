@@ -32,7 +32,7 @@ jobs:
 
   build:
     needs: test
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_11'}}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_12'}}
     name: Create Docker image and push to docker hub
     runs-on: ubuntu-latest
     env:
@@ -64,11 +64,32 @@ jobs:
           
   deploy:
     needs: build
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_11'}}
-    name: Deploy to Azure
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_12'}}
+    name: Deploy infrastructure, and app
+    env:
+      ARM_CLIENT_ID                  : ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET              : ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID            : ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID                  : ${{ secrets.ARM_TENANT_ID }}
+      TF_VAR_flask_app               : ${{ secrets.TF_VAR_FLASK_APP }}
+      TF_VAR_secret_key              : ${{ secrets.TF_VAR_SECRET_KEY }}
+      TF_VAR_mongo_collection_name   : ${{ secrets.TF_VAR_MONGO_COLLECTION_NAME }}
+      TF_VAR_admin_id                : ${{ secrets.TF_VAR_ADMIN_ID }}
+      TF_VAR_oauth_client_id         : ${{ secrets.TF_VAR_OAUTH_CLIENT_ID }}
+      TF_VAR_oauth_secret            : ${{ secrets.TF_VAR_OAUTH_SECRET }}
+      TF_VAR_prefix                  : ${{ secrets.TF_VAR_PREFIX }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
+      - name: Initialise Terraform
+        working-directory: ./terraform
+        run: terraform init
+
+      - name: Deploy/update infrastructure
+        working-directory: ./terraform
+        run: terraform apply -auto-approve
+
       - name: Trigger webhook
-        run: curl --fail -dH -X POST ${{ secrets.AZURE_WEBHOOK }}
+        working-directory: ./terraform
+        run: curl --fail -dH -X POST "$(terraform output -raw cd_webhook_url)"
