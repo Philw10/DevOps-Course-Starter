@@ -162,3 +162,19 @@ The CI/CD pipeline has now been updated to allow for infra updating and provisio
 For this Terraform is used.  See .tf files in the Terraform folder.
 
 Main.tf currently creates a new Azure web app if there isn't one already, and also sets up a Mongo DB for to-do list storage.
+
+Terraform can be initiated by running the following command (Make sure you are in the terraform directory):-
+
+```bash
+terraform init
+```
+
+Once initiated the state document can then be created and actioned with the following:-
+
+```bash
+terraform apply
+```
+
+The -auto-approve flag has been set on the pipeline to avoid having to manually approve the plan prior to infrastructure creation/change.
+
+The Main.tf file configures the backend to save the terraform state file on Azure blob storage.  If the file was stored with the main repo program secrets would not be securely encrypted.  By using Blob the file is encrypted and easily accessed by our pipeline.

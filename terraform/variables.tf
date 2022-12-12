@@ -11,7 +11,6 @@ variable "secret_key"{
 }
 variable "mongo_collection_name"{
     description = "The mongo collection name"
-    sensitive   = true
 }
 variable "admin_id"{
     description = "The GitHub ID of the admin account"
