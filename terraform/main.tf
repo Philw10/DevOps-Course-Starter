@@ -52,6 +52,8 @@ resource "azurerm_linux_web_app" "main" {
         "ADMIN_ID"                   = var.admin_id
         "GITHUB_OAUTH_CLIENT_ID"     = var.oauth_client_id
         "GITHUB_OAUTH_SECRET"        = var.oauth_secret
+        "LOG_LEVEL"                  = var.log_level
+        "LOGGLY_TOKEN"               = var.loggly_token
     }
 }
 

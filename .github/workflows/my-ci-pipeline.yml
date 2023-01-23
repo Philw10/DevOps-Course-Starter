@@ -32,7 +32,7 @@ jobs:
 
   build:
     needs: test
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_12'}}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_13'}}
     name: Create Docker image and push to docker hub
     runs-on: ubuntu-latest
     env:
@@ -64,7 +64,7 @@ jobs:
           
   deploy:
     needs: build
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_12'}}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/module_13'}}
     name: Deploy infrastructure, and app
     env:
       ARM_CLIENT_ID                  : ${{ secrets.ARM_CLIENT_ID }}
@@ -78,6 +78,9 @@ jobs:
       TF_VAR_oauth_client_id         : ${{ secrets.TF_VAR_OAUTH_CLIENT_ID }}
       TF_VAR_oauth_secret            : ${{ secrets.TF_VAR_OAUTH_SECRET }}
       TF_VAR_prefix                  : ${{ secrets.TF_VAR_PREFIX }}
+      TF_VAR_loggly_token            : ${{ secrets.TF_LOGGLY_TOKEN }}
+      TV_VAR_log_level               : ${{ secrets.TF_LOG_LEVEL }}
+      
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

@@ -178,3 +178,15 @@ terraform apply
 The -auto-approve flag has been set on the pipeline to avoid having to manually approve the plan prior to infrastructure creation/change.
 
 The Main.tf file configures the backend to save the terraform state file on Azure blob storage.  If the file was stored with the main repo program secrets would not be securely encrypted.  By using Blob the file is encrypted and easily accessed by our pipeline.
+
+## lOGGING
+
+The app and utilizes Loggly to to compile application logs and make them easier to search.
+
+```bash
+https://www.loggly.com/signup/
+```
+
+In order for this to work an environment vairable called LOGGLY_TOKEN needs to be added with your personal Loggly token.
+
+As standard the app will log everything as DEBUG when running in development, and ERROR when in production.  This can be overriden using the LOG_LEVEL env vairable. e.g LOG_LEVEL=DEBUG 
