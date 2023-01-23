@@ -1,5 +1,6 @@
 import pymongo
 import os
+import logging
 from todo_app.data.item import Item
 
 def mongo_db():
@@ -27,7 +28,7 @@ def add_item(title):
 
     new_item = {"task" : title, "status" : "To Do"}
 
-    mongo_collection().insert_one(new_item)  
+    mongo_collection().insert_one(new_item)     
 
 def doing_item(item_id):
 

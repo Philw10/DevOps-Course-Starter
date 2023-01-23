@@ -24,3 +24,10 @@ variable "oauth_secret"{
     description = "GitHub oauth client_secret"
     sensitive   = true
 }
+variable "loggly_token"{
+    description = "loggly logging token"
+    sensitive   = true
+}
+variable "log_level"{
+    description = "Log level for logging (DEBUG, or ERROR)"
+}
