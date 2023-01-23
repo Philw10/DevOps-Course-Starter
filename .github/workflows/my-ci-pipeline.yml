@@ -78,8 +78,8 @@ jobs:
       TF_VAR_oauth_client_id         : ${{ secrets.TF_VAR_OAUTH_CLIENT_ID }}
       TF_VAR_oauth_secret            : ${{ secrets.TF_VAR_OAUTH_SECRET }}
       TF_VAR_prefix                  : ${{ secrets.TF_VAR_PREFIX }}
-      TF_VAR_loggly_token            : ${{ secrets.TF_LOGGLY_TOKEN }}
-      TV_VAR_log_level               : ${{ secrets.TF_LOG_LEVEL }}
+      TF_VAR_loggly_token            : ${{ secrets.TF_VAR_LOGGLY_TOKEN }}
+      TV_VAR_log_level               : ${{ secrets.TF_VAR_LOG_LEVEL }}
       
     runs-on: ubuntu-latest
     steps:
